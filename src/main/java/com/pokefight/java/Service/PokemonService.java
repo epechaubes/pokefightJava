@@ -29,7 +29,6 @@ public class PokemonService {
                     }
                 }
                 listAttaque.add(attaqueAjoute);
-                pokemonRepository.save(pokemonAModif);
                 return pokemonRepository.save(pokemonAModif);
             }
             else{
@@ -48,7 +47,7 @@ public class PokemonService {
             Attaque attaqueSupprime = attaqueRepository.findOne(idAttaque);
             if (attaqueSupprime != null){
                 for (Attaque attaque : listAttaque){
-                    if (attaque == attaqueSupprime){
+                    if (attaque.getAttaqueId().equals(attaqueSupprime.getAttaqueId())){
                         listAttaque.remove(attaqueSupprime);
                         pokemonRepository.save(pokemonAModif);
                         return pokemonRepository.save(pokemonAModif);

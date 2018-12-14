@@ -1,5 +1,7 @@
 package com.pokefight.java.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class Pokemon {
     @JoinTable(name = "Connaitre",
             joinColumns = @JoinColumn(name = "ID_POKEMON"),
             inverseJoinColumns = @JoinColumn(name = "ID_ATTAQUE"))
-
+    @JsonManagedReference
     private List<Attaque> attaques;
 
     @Id

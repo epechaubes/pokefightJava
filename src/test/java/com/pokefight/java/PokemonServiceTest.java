@@ -34,10 +34,6 @@ public class PokemonServiceTest {
 
     @Before
     public void setUp(){
-        //Liste Pokemon
-        /*List<Pokemon> listPokemon = new ArrayList<Pokemon>();
-        listPokemon.add(pokemonRepository.findOne(42L));
-        List<Pokemon> listPokemon2 = new ArrayList<Pokemon>();*/
 
         //Attaques
         attaqueTest = new Attaque( "griffe", 60, 50, "normal", "physique");
@@ -54,6 +50,7 @@ public class PokemonServiceTest {
 
         //Ajout attaque et pokemon au repository
         pokemonTest = pokemonRepository.save(pokemonTest);
+
 
     }
 
@@ -75,13 +72,14 @@ public class PokemonServiceTest {
         //Given
         Long idPokemon = pokemonTest.getPokemonId();
         Long idAttaque = attaqueTest2.getAttaqueId();
+        System.out.print(idPokemon);
 
         //When
         Pokemon p = pokemonService.AjoutAttaque(idPokemon, idAttaque);
 
         //Then
         //Pokemon non nul
-        Assert.assertTrue(p != null);
+        Assert.assertNotNull(p);
         // Avoir l'attaque
         Assert.assertTrue(p.getAttaques().contains(attaqueTest2));
     }
@@ -131,6 +129,76 @@ public class PokemonServiceTest {
         //When
         try {
             Pokemon p = pokemonService.AjoutAttaque(idPokemon, idAttaque);
+            Assert.fail();
+        }
+        catch (Exception e){
+            Assert.assertEquals(e.getMessage(), "L'id du pokemon est incorrect : " + idPokemon);
+        }
+
+        //Then
+    }
+
+    @Test
+    public void testPokemonSupprimerAttaqueOk() throws Exception {
+        //Given
+        Long idPokemon = pokemonTest.getPokemonId();
+        Long idAttaque = attaqueTest.getAttaqueId();
+
+        //When
+        Pokemon p = pokemonService.SupprimerAttaque(idPokemon, idAttaque);
+
+        //Then
+        //Pokemon non nul
+        Assert.assertTrue(p != null);
+        // Ne pas voir l'attaque
+        Assert.assertFalse(p.getAttaques().contains(attaqueTest2));
+    }
+
+    @Test
+    public void testPokemonServiceSupprimerAttaqueInexistante() throws Exception {
+        //Given
+        Long idPokemon = pokemonTest.getPokemonId();
+        Long idAttaque = attaqueTest2.getAttaqueId();
+
+        //When
+        try {
+            Pokemon p = pokemonService.SupprimerAttaque(idPokemon, idAttaque);
+            Assert.fail();
+        }
+        catch (Exception e){
+            Assert.assertEquals(e.getMessage(), "Le pokemon (id : " + idPokemon + ") ne connaît pas l'attaque choisie (id : " + idAttaque + ")");
+        }
+
+        //Then
+    }
+
+    @Test
+    public void testPokemonSupprimerAttaqueIncorrect() throws Exception {
+        //Given
+        Long idPokemon = pokemonTest.getPokemonId();
+        Long idAttaque = 768L;
+
+        //When
+        try {
+            Pokemon p = pokemonService.SupprimerAttaque(idPokemon, idAttaque);
+            Assert.fail();
+        }
+        catch (Exception e){
+            Assert.assertEquals(e.getMessage(), "L'id de l'attaque est incorrect : " + idAttaque);
+        }
+
+        //Then
+    }
+
+    @Test
+    public void testPokemonSupprimerPokemonIncorrect() throws Exception {
+        //Given
+        Long idPokemon = 678L;
+        Long idAttaque = attaqueTest.getAttaqueId();
+
+        //When
+        try {
+            Pokemon p = pokemonService.SupprimerAttaque(idPokemon, idAttaque);
             Assert.fail();
         }
         catch (Exception e){
