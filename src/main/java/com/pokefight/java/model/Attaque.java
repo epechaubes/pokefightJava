@@ -1,6 +1,7 @@
 package com.pokefight.java.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,20 +10,12 @@ public class Attaque {
 
     @ManyToMany(mappedBy = "attaques", fetch = FetchType.LAZY)
 
-    private List<Pokemon> pokemon;
+    private List<Pokemon> pokemon = new ArrayList<>();
 
     @Id
     @Column(name = "ID_ATTAQUE")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long attaqueId;
-
-    public List<Pokemon> getPokemon() {
-        return pokemon;
-    }
-
-    public void setPokemon(List<Pokemon> pokemon) {
-        this.pokemon = pokemon;
-    }
 
     @Column(name = "NOM_ATTAQUE_AT")
     private String nomAttaque;
@@ -39,14 +32,23 @@ public class Attaque {
     @Column(name = "GENRE_AT")
     private String genreAttaque;
 
-    public Attaque(List<Pokemon> pokemon, Long attaqueId, String nomAttaque, Integer puissanceAttaque, Integer precisionAttaque, String typePokemon, String genreAttaque) {
-        this.pokemon = pokemon;
-        this.attaqueId = attaqueId;
+    public Attaque(String nomAttaque, Integer puissanceAttaque, Integer precisionAttaque, String typePokemon, String genreAttaque) {
         this.nomAttaque = nomAttaque;
         this.puissanceAttaque = puissanceAttaque;
         this.precisionAttaque = precisionAttaque;
         this.typePokemon = typePokemon;
         this.genreAttaque = genreAttaque;
+    }
+
+    public Attaque() {
+    }
+
+    public List<Pokemon> getPokemon() {
+        return pokemon;
+    }
+
+    public void setPokemon(List<Pokemon> pokemon) {
+        this.pokemon = pokemon;
     }
 
     public Long getAttaqueId() {

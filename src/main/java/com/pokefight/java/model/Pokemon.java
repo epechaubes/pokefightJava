@@ -25,14 +25,6 @@ public class Pokemon {
     @Column(name = "TYPE_POK")
     private String typePokemon;
 
-    public List<Attaque> getAttaques() {
-        return attaques;
-    }
-
-    public void setAttaques(List<Attaque> attaques) {
-        this.attaques = attaques;
-    }
-
     @Column(name = "POINT_DE_VIE_POK")
     private Integer pdvPokemon;
 
@@ -51,9 +43,8 @@ public class Pokemon {
     @Column(name = "VITESSE_POK")
     private Integer vitessePokemon;
 
-    public Pokemon(List<Attaque> attaques, Long pokemonId, String nomPokemon, String typePokemon, Integer pdvPokemon, Integer attaquePokemon, Integer defensePokemon, Integer attaqueSpePokemon, Integer defenseSpePokemon, Integer vitessePokemon) {
+    public Pokemon(List<Attaque> attaques, String nomPokemon, String typePokemon, Integer pdvPokemon, Integer attaquePokemon, Integer defensePokemon, Integer attaqueSpePokemon, Integer defenseSpePokemon, Integer vitessePokemon) {
         this.attaques = attaques;
-        this.pokemonId = pokemonId;
         this.nomPokemon = nomPokemon;
         this.typePokemon = typePokemon;
         this.pdvPokemon = pdvPokemon;
@@ -62,6 +53,17 @@ public class Pokemon {
         this.attaqueSpePokemon = attaqueSpePokemon;
         this.defenseSpePokemon = defenseSpePokemon;
         this.vitessePokemon = vitessePokemon;
+    }
+
+    public Pokemon() {
+    }
+
+    public List<Attaque> getAttaques() {
+        return attaques;
+    }
+
+    public void setAttaques(List<Attaque> attaques) {
+        this.attaques = attaques;
     }
 
     public Long getPokemonId() {
