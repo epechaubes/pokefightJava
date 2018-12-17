@@ -72,7 +72,6 @@ public class PokemonServiceTest {
         //Given
         Long idPokemon = pokemonTest.getPokemonId();
         Long idAttaque = attaqueTest2.getAttaqueId();
-        System.out.print(idPokemon);
 
         //When
         Pokemon p = pokemonService.AjoutAttaque(idPokemon, idAttaque);
@@ -149,7 +148,7 @@ public class PokemonServiceTest {
 
         //Then
         //Pokemon non nul
-        Assert.assertTrue(p != null);
+        Assert.assertNotNull(p);
         // Ne pas voir l'attaque
         Assert.assertFalse(p.getAttaques().contains(attaqueTest2));
     }
